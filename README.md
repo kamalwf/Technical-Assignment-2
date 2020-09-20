@@ -33,7 +33,7 @@ echo "deb https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt
 sudo apt-get update
 sudo apt-get install helm
 
-# Create and install Helm Chart for Nginx deployment
+# Create and install Helm Chart for Nginx deployment and include Hello World !
  helm create myassignment
  Change --> Myassignment --> values.yaml
  helm install my-bb-assign myassignment/ --values myassignment/values.yaml
@@ -43,16 +43,26 @@ sudo apt-get install helm
   247  kubectl get svc
   248  curl -v http://172.17.0.3:30873
   
-# Create and install Helm Chart for Tomcat deployment
+# Create and install Helm Chart for Tomcat deployment and deploy sample.war
   helm create mytomcatbbchart
   change --> Myassignment --> values.yaml
   helm install my-kanbbtomcat-chart mytomcatbbchart/ --values mytomcatbbchart/values.yaml
   572  export NODE_PORT=$(kubectl get --namespace default -o jsonpath="{.spec.ports[0].nodePort}" services kamal-bb-tomcat)
   573  export NODE_IP=$(kubectl get nodes --namespace default -o jsonpath="{.items[0].status.addresses[0].address}")
   574  echo http://$NODE_IP:$NODE_PORT
-  575  curl -v http://172.17.0.3:32475
+  http://52.232.108.193:8080/sample/ --> To view the sample Web page
   
-# Create and install Helm Chart for Tomcat deployment
+# Create and install Helm Chart for Jenkins deployment and deployed a Static Dummy job
+
+helm repo add jenkinsci https://charts.jenkins.io
+helm install jenkinsci/jenkins
+Uname:Admin Password:0pLteWPhbE
+kubectl port-forward svc/jenkins-1600610631 8080:8080 --address 0.0.0.0
+http://52.232.108.193/:8080 to access Jenkins
+Sample Job : Hello-Backbase 
+Use the following URL to trigger build remotely: http://52.232.108.193:8080//job/Dummy-Job/build?token=1234
+
+
   
 
 
